@@ -1,0 +1,63 @@
+
+/* base settings */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: #a7d6fd;
+  font-family: 'Original Surfer', cursive;
+  font-weight: 500;
+  line-height: 1.4;
+  color: black;
+}
+
+h1 {
+  font-family: 'IM Fell English', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 20px 15%;
+  text-align: left;
+}
+
+ul {
+  list-style-type: none;
+  margin: 30px 15% 0;
+  padding: 0;
+}
+
+ul li {
+  padding: 5px 0;
+}
+
+ul li:hover {
+  color: #0b0c11;
+  font-size: 16px;
+}
+
+/* media queries */
+
+@media all and (max-width: 400px) {
+  html {
+    font-size: 12px;
+  }
+
+  h1 ul {
+    margin: 20px 5%;
+  }
+}
+
+@media all and (min-width: 800px) {
+  html {
+    font-size: 24px;
+  }
+
+  h1 ul {
+    margin: 30px 25%;
+  }
+}
