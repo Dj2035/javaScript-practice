@@ -11,7 +11,7 @@ html {
 
 body {
   background-color: #a7d6fd;
-  font-family: 'Original Surfer', cursive;
+  font-family: 'IM Fell English', serif;
   font-weight: 500;
   line-height: 1.4;
   color: black;
@@ -37,17 +37,16 @@ ul li {
 
 ul li:hover {
   color: #0b0c11;
-  font-size: 16px;
+  font-size: 1.2rem;
 }
-
-/* media queries */
 
 @media all and (max-width: 400px) {
   html {
     font-size: 12px;
   }
 
-  h1 ul {
+  h1,
+  ul {
     margin: 20px 5%;
   }
 }
@@ -57,7 +56,8 @@ ul li:hover {
     font-size: 24px;
   }
 
-  h1 ul {
+  h1,
+  ul {
     margin: 30px 25%;
   }
 }
