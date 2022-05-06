@@ -28,34 +28,57 @@ let pokemonRepository = (function () {
 		}
 	];
 
-	//Defining add function to add pokemon to list
-	function add(pokemon1, pokemon2) {
-		pokemonList.push(pokemon1, pokemon2);
-	}
 	// adding the typeof function (Needs to be checked)
-	/* function add(pokemon1, pokemon2) {
-			if (typeof pokemon1 && pokemon2 === "object") {
-			pokemonList.push(pokemon1, pokemon2);
-			}else {
-			document.write(This is not an object);
-			}
+	function add(pokemon) {
+		if (typeof pokemon === "object" && !Array.isArray(pokemon)) {
+		pokemonList.push(pokemon);
+		}else {
+		console.log("pokemon is not correct");
 		}
-	*/
+	}
 
 	//Defining getAll function to return pokemonList
 	function getAll() {
 		return pokemonList;
 	}
 
-	// Returning getAll and add functions
+	function addListItem(pokemon) {
+		let list = document.querySelector('ul');
+
+		let listItem = document.createElement('li');
+
+		let button = document.createElement('button');
+		button.innerText = pokemon.name;
+		button.classList.add('pokemon-button');
+
+		listItem.appendChild(button);
+		list.appendChild(listItem);
+		addListener(button, pokemon);
+	}
+
+	// Function for adding event listener to pokemon buttons that listen to a click
+	function addListener (button, pokemon) {
+		button.addEventListener('click', function() {
+		showDetails(pokemon.name);
+	});
+	}
+
+	// Function for showing pokemon details
+	function showDetails(pokemon) {
+		console.log(pokemon);
+	}
+
+	// Returning getAll add, add functions
 	return {
-		add: add,
-		getAll: getAll
+		add:add,
+		getAll:getAll,
+		addListItem:addListItem,
+		showDetails:showDetails
 	};
 })();
 
 // Adding 2 additional pokemons to pokemon list
-pokemonRepository.add(
+const newPokemons = [
 	{
 		name: "Wartortle",
 		height: 3,
@@ -68,18 +91,20 @@ pokemonRepository.add(
 		types: ["bug"],
 		weaknesses: ["fire", "flying", "rock"]
 	}
-)
+];
 
-// Html
-document.write("<h1>Available Pokémons</h1>");
-document.write("<ul>")
+newPokemons.forEach(function(newPokemons) {
+	return pokemonRepository.add(newPokemons)
+});
 
 // forEach loop using function that allows to retrieve the pokemon list
 pokemonRepository.getAll().forEach(function(pokemon) {
+	pokemonRepository.addListItem(pokemon);
+
     // condition statement for big pokemon
-    let isBig = pokemon.height > 10 ? "- Wow, that's big!" : "";
-	document.write(
-        `<li><b>${pokemon.name}</b><br> &nbsp&nbsp(height: ${pokemon.height}) ${isBig} </li>`
-   );
+   //let isBig = pokemon.height > 10 ? "- Wow, that's big!" : "";
+
+	//document.write(
+    //    `${pokemon.name}</b><br> &nbsp&nbsp(height: ${pokemon.height}) ${isBig}`
+  // );
 })
-document.write("</ul>")
