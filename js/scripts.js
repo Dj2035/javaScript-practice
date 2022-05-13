@@ -1,32 +1,9 @@
 // IIFE
 let pokemonRepository = (function () {
-	// List is pokemons
-	let pokemonList = [
-		{
-			name: "Balbasaur",
-			height: 7,
-			types: ["grass", "poison"],
-			weaknesses: ["fire", "psychic", "flying", "ice"]
-		},
-		{
-			name: "Metapod",
-			height: 7,
-			types: ["bug"],
-			weaknesses: ["fire", "flying", "rock"]
-		},
-		{
-			name: "Charmeleon",
-			height: 11,
-			types: ["monster", "dragon"],
-			weaknesses: ["water", "ground", "rock"]
-		},
-		{
-			name: "Pikachu",
-			height: 4,
-			types: ["field", "fairy"],
-			weaknesses: ["ground"]
-		}
-	];
+	// Initialize pokemon list
+	let pokemonList = [];
+
+	let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
 	// adding the typeof function (Needs to be checked)
 	function add(pokemon) {
@@ -43,7 +20,7 @@ let pokemonRepository = (function () {
 	}
 
 	function addListItem(pokemon) {
-		let list = document.querySelector('ul');
+		let list = document.querySelector('.pokemon-list');
 
 		let listItem = document.createElement('li');
 
@@ -58,14 +35,57 @@ let pokemonRepository = (function () {
 
 	// Function for adding event listener to pokemon buttons that listen to a click
 	function addListener (button, pokemon) {
-		button.addEventListener('click', function() {
-		showDetails(pokemon.name);
-	});
+		button.addEventListener('click', (event) => showDetails(pokemon));
 	}
 
 	// Function for showing pokemon details
 	function showDetails(pokemon) {
-		console.log(pokemon);
+		loadDetails(pokemon).then( () => console.log(pokemon));
+	}
+
+	function loadingMessageHidden(hide) {
+		let loadingMessage = document.querySelector('.loading-message')
+		if (hide) {
+			loadingMessage.classList.add('hidden');
+		} else {
+			loadingMessage.classList.remove('hidden');
+		}
+	}
+
+	function loadList() {
+		loadingMessageHidden(false);
+		return fetch(apiUrl).then(function (response) {
+			loadingMessageHidden(true);
+			return response.json();
+		}).then(function (json) {
+			loadingMessageHidden(true);
+			json.results.forEach(function (item) {
+				let pokemon = {
+					name: item.name,
+					detailsUrl: item.url
+				};
+				add(pokemon);
+			});
+		}).catch(function (e) {
+			loadingMessageHidden(true);
+			console.error(e);
+		});
+	}
+
+	function loadDetails(item) {
+		loadingMessageHidden(false);
+		let url = item.detailsUrl;
+		return fetch(url).then(function (response) {
+			loadingMessageHidden(true);
+			return response.json();
+		}).then(function (details) {
+			item.imageUrl = details.sprites.front_default;
+			item.height = details.height;
+      item.types = details.types;
+		}).catch(function (e) {
+			loadingMessageHidden(true);
+			console.error(e);
+		});
 	}
 
 	// Returning getAll add, add functions
@@ -73,38 +93,16 @@ let pokemonRepository = (function () {
 		add:add,
 		getAll:getAll,
 		addListItem:addListItem,
-		showDetails:showDetails
+		showDetails:showDetails,
+		loadList:loadList,
+		loadDetails:loadDetails
 	};
 })();
 
-// Adding 2 additional pokemons to pokemon list
-const newPokemons = [
-	{
-		name: "Wartortle",
-		height: 3,
-		types: ["water"],
-		weaknesses: ["grass", "electric"]
-	},
-	{
-		name: "Caterpie",
-		height: 1,
-		types: ["bug"],
-		weaknesses: ["fire", "flying", "rock"]
-	}
-];
-
-newPokemons.forEach(function(newPokemons) {
-	return pokemonRepository.add(newPokemons)
+//loading data from pokemon url
+pokemonRepository.loadList().then(function() {
+	// forEach loop using function that allows to retrieve the pokemon list
+	pokemonRepository.getAll().forEach(function(pokemon) {
+		pokemonRepository.addListItem(pokemon);
+	});
 });
-
-// forEach loop using function that allows to retrieve the pokemon list
-pokemonRepository.getAll().forEach(function(pokemon) {
-	pokemonRepository.addListItem(pokemon);
-
-    // condition statement for big pokemon
-   //let isBig = pokemon.height > 10 ? "- Wow, that's big!" : "";
-
-	//document.write(
-    //    `${pokemon.name}</b><br> &nbsp&nbsp(height: ${pokemon.height}) ${isBig}`
-  // );
-})
