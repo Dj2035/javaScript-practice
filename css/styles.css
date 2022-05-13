@@ -40,6 +40,15 @@ ul li:hover {
   font-size: 1.2rem;
 }
 
+.loading-message {
+  margin: 20px 15%;
+  text-align: left;
+}
+
+.hidden {
+  display: none;
+}
+
 .pokemon-button {
   width: 30%;
   border-radius: 3px;
