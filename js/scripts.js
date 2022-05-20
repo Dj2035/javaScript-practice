@@ -75,7 +75,7 @@ let pokemonRepository = (function () {
       let types = [];
 			details.types.forEach((item) => types.push(item.type.name));
 			item.types = types;
-			return item;
+
 		}).catch(function (e) {
 			loadingMessageHidden(true);
 			console.error(e);
@@ -84,8 +84,8 @@ let pokemonRepository = (function () {
 
 	// Function for showing pokemon details
 	function showDetails(pokemon) {
-		loadDetails(pokemon).then(function (details) {
-			showModal(details);
+		loadDetails(pokemon).then(function () {
+			showModal(pokemon);
 		});
 	}
 
@@ -108,7 +108,7 @@ let pokemonRepository = (function () {
 		closeButtonElement.addEventListener('click', hideModal);
 
 		let imgElement = document.createElement('img');
-		imgElement.scr = pokemon.imageUrl;
+		imgElement.src = pokemon.imageUrl;
 		imgElement.classList.add('pokemon-front-image');
 		imgElement.setAttribute('alt', 'image of ' + pokemon.name);
 
