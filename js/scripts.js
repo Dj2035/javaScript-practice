@@ -4,10 +4,11 @@ let pokemonRepository = (function () {
 	let pokemonList = [];
 
 	let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+	let modalContainer = document.querySelector('#modal-container');
 
 	// adding the typeof function (Needs to be checked)
 	function add(pokemon) {
-		if (typeof pokemon === "object" && !Array.isArray(pokemon)) {
+		if (pokemon.name && pokemon.detailsUrl) {
 		pokemonList.push(pokemon);
 		}else {
 		console.log("pokemon is not correct");
@@ -24,23 +25,14 @@ let pokemonRepository = (function () {
 
 		let listItem = document.createElement('li');
 
-		let button = document.createElement('button');
-		button.innerText = pokemon.name;
-		button.classList.add('pokemon-button');
+		let buttonItem = document.createElement('button');
+		buttonItem.innerText = pokemon.name;
+		buttonItem.classList.add('pokemon-button');
 
-		listItem.appendChild(button);
+		listItem.appendChild(buttonItem);
 		list.appendChild(listItem);
-		addListener(button, pokemon);
-	}
-
-	// Function for adding event listener to pokemon buttons that listen to a click
-	function addListener (button, pokemon) {
-		button.addEventListener('click', (event) => showDetails(pokemon));
-	}
-
-	// Function for showing pokemon details
-	function showDetails(pokemon) {
-		loadDetails(pokemon).then( () => console.log(pokemon));
+		// calling the pokemon botton listener function that shows pokemon details when clicked on
+		addListener(buttonItem, pokemon);
 	}
 
 	function loadingMessageHidden(hide) {
@@ -58,7 +50,6 @@ let pokemonRepository = (function () {
 			loadingMessageHidden(true);
 			return response.json();
 		}).then(function (json) {
-			loadingMessageHidden(true);
 			json.results.forEach(function (item) {
 				let pokemon = {
 					name: item.name,
@@ -81,12 +72,83 @@ let pokemonRepository = (function () {
 		}).then(function (details) {
 			item.imageUrl = details.sprites.front_default;
 			item.height = details.height;
-      item.types = details.types;
+      let types = [];
+			details.types.forEach((item) => types.push(item.type.name));
+			item.types = types;
 		}).catch(function (e) {
 			loadingMessageHidden(true);
 			console.error(e);
 		});
 	}
+
+	// Function for showing pokemon details
+	function showDetails(pokemon) {
+		loadDetails(pokemon).then(function() {
+			showModal(pokemon);
+		});
+	}
+
+	// Function for adding event listener to pokemon buttons that listen to a click
+	function addListener (button, pokemon) {
+		button.addEventListener('click', (event) => showDetails(pokemon));
+	}
+
+	function showModal(pokemon) {
+		// Clear all existing modal content
+		modalContainer.innerHTML = '';
+
+		let modal = document.createElement('div');
+		modal.classList.add('modal');
+
+		let closeButtonElement = document.createElement('button');
+		closeButtonElement.classList.add('modal-close');
+		closeButtonElement.innerText = 'Close';
+		// hiding modal by clciking on 'close' in the modal
+		closeButtonElement.addEventListener('click', hideModal);
+
+		let imgElement = document.createElement('img');
+		imgElement.scr = pokemon.imageUrl;
+		imgElement.classList.add('pokemon-front-image');
+		imgElement.setAttribute('src', 'image of ' + pokemon.name);
+
+		let titleElement = document.createElement('h2');
+		titleElement.innerText = pokemon.name;
+
+		let heightElement = document.createElement('p');
+		heightElement.innerText = `Height: ${pokemon.height}`;
+
+		let typesElement = document.createElement('p');
+		typesElement.innerText = `Types: ${pokemon.types.join(', ')}`;
+
+		// appending elements to the modal div
+		modal.appendChild(closeButtonElement);
+		modal.appendChild(titleElement);
+		modal.appendChild(heightElement);
+		modal.appendChild(typesElement);
+		modal.appendChild(imgElement);
+		modalContainer.appendChild(modal);
+
+		modalContainer.classList.add('is-visible');
+	}
+
+	function hideModal() {
+		modalContainer.classList.remove('is-visible');
+	}
+
+	//Closing modal by clicking on the Escape key
+	window.addEventListener('keydown', (e) => {
+		if(e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+			hideModal();
+		}
+	});
+
+	// Closing modal by clicking on the target(modal div)
+	modalContainer.addEventListener('click', (e) => {
+		let target = e.target;
+		if(target === modalContainer) {
+			hideModal();
+		}
+	});
 
 	// Returning getAll add, add functions
 	return {
