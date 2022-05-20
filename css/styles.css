@@ -5,37 +5,34 @@
   box-sizing: border-box;
 }
 
-html {
-  font-size: 16px;
-}
-
 body {
-  background-color: #a7d6fd;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: 500;
-  line-height: 1.4;
-  color: black;
+  font-size: 1rem;
+  text-transform: capitalize;
+  background-color: #eafdf8;
+  line-height: 1.6rem;
 }
 
 h1 {
+  font-size: 2.5rem;
+  line-height: 2.8rem;
+  padding-left: 1rem;
+  text-align: center;
+}
+
+h2 {
   font-size: 2rem;
   font-weight: 600;
-  margin: 20px 15%;
-  text-align: left;
+  text-align: center;
 }
 
-ul {
+.pokemon-list {
+  width: 500px;
+  max-width: 80vw;
   list-style-type: none;
-  margin: 30px 15% 0;
+  margin: 0 auto;
   padding: 0;
-}
-
-ul li {
-  padding: 5px 0;
-}
-
-ul li:hover {
-  color: #0b0c11;
-  font-size: 1.2rem;
 }
 
 .loading-message {
@@ -47,21 +44,30 @@ ul li:hover {
   display: none;
 }
 
+li {
+  text-align: center;
+}
+
 .pokemon-button {
-  width: 30%;
+  width: 60%;
   border-radius: 3px;
-  padding: 16px 32px;
+  padding: 10px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: inherit;
   margin: 4px 2px;
+  text-transform: capitalize;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
-  cursor: pointer;
-  background-color: white;
+  background-color: #0e9571;
+  color: white;
+}
+
+.pokemon-button:hover {
   color: black;
-  border: 2px solid #4caf50;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 #modal-container {
@@ -109,14 +115,6 @@ ul li:hover {
   text-decoration: underline;
 }
 
-.modal h2 {
-  margin-top: 0;
-}
-
-.modal p {
-  margin-bottom: 0;
-}
-
 .pokemon-front-image {
   display: block;
   margin-left: auto;
@@ -124,24 +122,17 @@ ul li:hover {
   width: 50%;
 }
 
-@media all and (max-width: 400px) {
-  html {
-    font-size: 12px;
+@media all and (max-width: 500px) {
+  h1 {
+    font-size: 2rem;
   }
 
-  h1,
   ul {
-    margin: 20px 5%;
-  }
-}
-
-@media all and (min-width: 800px) {
-  html {
-    font-size: 24px;
+    margin: 2px auto;
+    padding: 0;
   }
 
-  h1,
-  ul {
-    margin: 30px 25%;
+  .pokemon-button {
+    width: 80%;
   }
 }
