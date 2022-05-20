@@ -75,6 +75,7 @@ let pokemonRepository = (function () {
       let types = [];
 			details.types.forEach((item) => types.push(item.type.name));
 			item.types = types;
+			return item;
 		}).catch(function (e) {
 			loadingMessageHidden(true);
 			console.error(e);
@@ -83,8 +84,8 @@ let pokemonRepository = (function () {
 
 	// Function for showing pokemon details
 	function showDetails(pokemon) {
-		loadDetails(pokemon).then(function() {
-			showModal(pokemon);
+		loadDetails(pokemon).then(function (details) {
+			showModal(details);
 		});
 	}
 
@@ -109,7 +110,7 @@ let pokemonRepository = (function () {
 		let imgElement = document.createElement('img');
 		imgElement.scr = pokemon.imageUrl;
 		imgElement.classList.add('pokemon-front-image');
-		imgElement.setAttribute('src', 'image of ' + pokemon.name);
+		imgElement.setAttribute('alt', 'image of ' + pokemon.name);
 
 		let titleElement = document.createElement('h2');
 		titleElement.innerText = pokemon.name;
