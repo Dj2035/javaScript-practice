@@ -4,16 +4,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Simple JS App</title>
   <link href="css/styles.css" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css2?family=Original+Surfer&display=swap" rel="stylesheet">
  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&family=Original+Surfer&display=swap" rel="stylesheet">
+ <link rel="icon" href="img/favicon.ico">
+ <title>Simple JS App</title>
 </head>
 
 <body>
-  <h1>Pokedex</h1>
+  <div>
+    <h1>Pokedex</h1>
+  </div>
   <div class = "loading-message">Loading...</div>
   <ul class="pokemon-list"></ul>
+
+  <div id="modal-container"></div>
 
   <strong>
     <script src="js/promise-polyfill.js"></script>
