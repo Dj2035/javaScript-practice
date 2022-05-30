@@ -21,18 +21,26 @@ let pokemonRepository = (function () {
 	}
 
 	function addListItem(pokemon) {
-		let list = document.querySelector('.pokemon-list');
+		let ul = document.querySelector('ul');
+		ul.classList.add('list-group')
 
-		let listItem = document.createElement('li');
+		let li = document.createElement('li');
+		li.classList.add('group-list-item', 'col-sm-8');
 
-		let buttonItem = document.createElement('button');
-		buttonItem.innerText = pokemon.name;
-		buttonItem.classList.add('pokemon-button');
+		let button = document.createElement('button');
+		button.innerText = pokemon.name;
+		button.classList.add('pokemon-button', 'btn', 'btn-primary');
+		button.setAttribute('data-toggle', 'modal');
+    button.setAttribute('data-target', '.modal');
 
-		listItem.appendChild(buttonItem);
-		list.appendChild(listItem);
+		li.appendChild(button);
+		ul.appendChild(li);
+
 		// calling the pokemon botton listener function that shows pokemon details when clicked on
-		addListener(buttonItem, pokemon);
+		button.addEventListener('click', (event) => {
+			showDetails(pokemon);
+			event.target.blur()
+		});
 	}
 
 	function loadingMessageHidden(hide) {
@@ -87,11 +95,6 @@ let pokemonRepository = (function () {
 		loadDetails(pokemon).then(function () {
 			showModal(pokemon);
 		});
-	}
-
-	// Function for adding event listener to pokemon buttons that listen to a click
-	function addListener (button, pokemon) {
-		button.addEventListener('click', (event) => showDetails(pokemon));
 	}
 
 	function showModal(pokemon) {
