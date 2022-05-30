@@ -22,7 +22,25 @@
   <div class = "loading-message">Loading...</div>
   <ul class="pokemon-list"></ul>
 
-  <div id="modal-container"></div>
+  <!-- Bootstap modal -->
+  <div class="modal fade" id="pokemonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">pokemon name</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Pokemon details come here.
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <script src="js/promise-polyfill.js"></script>
