@@ -79,5 +79,11 @@ hr {
 
   input {
     max-width: 200px;
+    margin-top: 20px;
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: center;
   }
 }
