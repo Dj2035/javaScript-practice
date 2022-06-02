@@ -4,6 +4,8 @@ let pokemonRepository = (function() {
   let pokemonList = [];
 
   let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
+  let input = $("input");
+  input.on("input", filterList);
 
   //Defining getAll function to return pokemonList
   function getAll() {
@@ -100,6 +102,20 @@ let pokemonRepository = (function() {
         loadingMessageHidden(true);
         console.error(err);
       });
+  }
+
+  function filterList() {
+    let inputValue = $("input").val();
+    let list = $("li");
+    list.each(function() {
+      let item = $(this);
+      let name = item.text();
+      if (name.startsWith(inputValue)) {
+        item.show();
+      } else {
+        item.hide();
+      }
+    });
   }
 
   function showModal(pokemon) {
