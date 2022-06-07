@@ -25,7 +25,7 @@ let pokemonRepository = (function() {
     // select List & create list item
     let ul = document.querySelector("ul");
     let listItem = document.createElement("li");
-    listItem.classList.add("col-8", "col-sm-6", "col-md-4", "col-lg-3");
+    listItem.classList.add("col-sm-6", "col-md-4", "col-lg-3");
     let button = document.createElement("button");
     button.innerText = pokemon.name;
     button.addEventListener("click", event => {
