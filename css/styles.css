@@ -43,14 +43,14 @@ input {
   font-size: 1.1rem;
   font-weight: inherit;
   color: white;
-  background-color: #003A70;
+  background-color: #003a70;
   transition-duration: 0.3s;
 }
 
 .pokemon-button:hover {
-  color: #FFCB05;
+  color: #ffcb05;
   font-size: 1.2rem;
-  background-color: #003A70;
+  background-color: #003a70;
 }
 
 .modal-body img {
@@ -61,10 +61,6 @@ input {
 
 .page-container {
   margin-top: 130px;
-}
-
-ul {
-  justify-content: center;
 }
 
 nav {
