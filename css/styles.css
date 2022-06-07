@@ -21,8 +21,6 @@ h1 {
 }
 
 .pokemon-list {
-  width: 500px;
-  max-width: 80vw;
   list-style-type: none;
   margin: 0 auto;
   padding: 0;
@@ -45,14 +43,14 @@ input {
   font-size: 1.1rem;
   font-weight: inherit;
   color: white;
-  background-color: #0e9571;
+  background-color: #003A70;
   transition-duration: 0.3s;
 }
 
 .pokemon-button:hover {
-  color: black;
+  color: #FFCB05;
   font-size: 1.2rem;
-  background-color: #0e9571;
+  background-color: #003A70;
 }
 
 .modal-body img {
@@ -65,12 +63,16 @@ input {
   margin-top: 130px;
 }
 
+ul {
+  justify-content: center;
+}
+
 nav {
-  background: #f2fcfa;
+  background: #eafdf8;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
-@media all and (max-width: 500px) {
+@media all and (max-width: 450px) {
   h1 {
     font-size: 2rem;
   }
@@ -83,5 +85,9 @@ nav {
   .navbar {
     display: flex;
     justify-content: center;
+  }
+
+  .page-container {
+    margin-top: 170px;
   }
 }
