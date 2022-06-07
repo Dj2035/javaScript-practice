@@ -25,7 +25,7 @@ let pokemonRepository = (function() {
     // select List & create list item
     let ul = document.querySelector("ul");
     let listItem = document.createElement("li");
-    listItem.classList.add("col-sm-8");
+    listItem.classList.add("col-8", "col-sm-6", "col-md-4", "col-lg-3");
     let button = document.createElement("button");
     button.innerText = pokemon.name;
     button.addEventListener("click", event => {
@@ -33,7 +33,7 @@ let pokemonRepository = (function() {
       event.target.blur();
     });
     //Add classes & attributes to list item
-    button.classList.add("btn", "btn-success", "btn-block");
+    button.classList.add("btn", "btn-block");
     button.classList.add("m-1", "text-capitalize", "pokemon-button");
     button.setAttribute("data-toggle", "modal");
     button.setAttribute("data-target", ".modal");
